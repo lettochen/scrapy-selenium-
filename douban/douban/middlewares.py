@@ -82,8 +82,8 @@ class DoubanDownloaderMiddleware(object):
         try:
             self.driver.find_element_by_xpath('//body/div[1]/div[1]/ul[1]/li[2]').click()
             time.sleep(0.5)
-            self.driver.find_element_by_xpath('//input[@id="username"]').send_keys('15079076306')
-            self.driver.find_element_by_xpath('//input[@id="password"]').send_keys('doubanlaji1')
+            self.driver.find_element_by_xpath('//input[@id="username"]').send_keys('xxx')
+            self.driver.find_element_by_xpath('//input[@id="password"]').send_keys('xxx')
             self.driver.find_element_by_xpath('//div[@class="account-form-field-submit "]').click()
             '''设置等待响应时间'''
             time.sleep(1)
@@ -102,8 +102,11 @@ class DoubanDownloaderMiddleware(object):
             print('Successful logging!')
 
     def process_request(self, request, spider):
-        '''特殊的标记，只是运行一次，用来登录'''
-        self.count += 1
+        '''
+        特殊的标记，只是运行一次，用来登录
+        本来想实现翻页，但是没有成功，所以不设置也没问题。
+        '''
+       self.count += 1
         if self.count <= 1:
             return HtmlResponse(url=request.url, status=200, request=request,
                                 encoding='utf-8', body=self.driver.page_source)
